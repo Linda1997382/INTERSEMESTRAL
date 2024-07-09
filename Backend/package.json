@@ -6,10 +6,10 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@babel/cli": "^7.24.5",
-    "@babel/core": "^7.24.5",
-    "@babel/node": "^7.23.9",
-    "@babel/preset-env": "^7.24.5",
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/node": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "all": "^0.0.0",
     "babel": "^6.23.0",
     "bcrypt": "^5.1.1",
@@ -23,7 +23,8 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
-    "mysql2": "^3.9.7"
+    "mysql2": "^3.10.2",
+    "nodemon": "^3.1.4"
   },
   "type": "module"
 }

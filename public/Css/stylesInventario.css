@@ -19,6 +19,13 @@ body {
     margin-right: 1px;
     margin-left: 1px;
 }
+/*wishlist*/
+.navbar-nav .nav-link.bi.bi-bookmark-heart-fill{
+    color: white;
+    font-size: 15px; 
+    margin-right: 1px;
+    margin-left: 1px;
+}
 
 #login-link .fas.fa-sign-in-alt,
 .navbar-nav .nav-link .fas.fa-shopping-cart {

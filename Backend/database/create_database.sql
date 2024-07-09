@@ -12,13 +12,69 @@ CREATE TABLE IF NOT EXISTS autor (
   PRIMARY KEY (ID)
 );
 
--- Estructura de la tabla 'autorcategoria'
-CREATE TABLE IF NOT EXISTS autorcategoria (
-  AutorID INT NOT NULL,
-  CategoriaID INT NOT NULL,
-  PRIMARY KEY (AutorID, CategoriaID),
+-- Estructura de la tabla 'editorial'
+CREATE TABLE IF NOT EXISTS editorial (
+  ID INT NOT NULL AUTO_INCREMENT,
+  Nombre VARCHAR(100) NOT NULL,
+  Sede VARCHAR(100),
+  Fundacion DATE,
+  Descripcion TEXT,
+  PRIMARY KEY (ID)
+);
+
+-- Estructura de la tabla 'categoria'
+CREATE TABLE IF NOT EXISTS categoria (
+  ID INT NOT NULL AUTO_INCREMENT,
+  Nombre VARCHAR(50) NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+-- Estructura de la tabla 'libro'
+CREATE TABLE IF NOT EXISTS libro (
+  ID INT NOT NULL AUTO_INCREMENT,
+  Titulo VARCHAR(255) NOT NULL,
+  AutorID INT,
+  EditorialID INT,
+  Precio DECIMAL(10,2) NOT NULL,
+  Descripcion TEXT,
+  CategoriaID INT,
+  Imagen VARCHAR(255),
+  PRIMARY KEY (ID),
   FOREIGN KEY (AutorID) REFERENCES autor(ID),
+  FOREIGN KEY (EditorialID) REFERENCES editorial(ID),
   FOREIGN KEY (CategoriaID) REFERENCES categoria(ID)
+);
+
+-- Estructura de la tabla 'usuario'
+CREATE TABLE IF NOT EXISTS usuario (
+  ID INT NOT NULL AUTO_INCREMENT,
+  Nombre VARCHAR(100) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
+  Password VARCHAR(255) NOT NULL,
+  privilegio_id INT NOT NULL, -- Agregar esta línea para definir la columna privilegio_id
+  PRIMARY KEY (ID),
+  FOREIGN KEY (privilegio_id) REFERENCES privilegio(ID) -- Agregar esta línea para definir la relación con la tabla privilegio
+);
+
+-- Estructura de la tabla 'venta'
+CREATE TABLE IF NOT EXISTS venta (
+  ID INT NOT NULL AUTO_INCREMENT,
+  UsuarioID INT NOT NULL,
+  Fecha DATETIME NOT NULL,
+  Total DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (ID),
+  FOREIGN KEY (UsuarioID) REFERENCES usuario(ID)
+);
+
+-- Estructura de la tabla 'ventadetalle'
+CREATE TABLE IF NOT EXISTS ventadetalle (
+  VentaID INT NOT NULL,
+  LibroID INT NOT NULL,
+  Cantidad INT NOT NULL,
+  Precio DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (VentaID, LibroID),
+  FOREIGN KEY (VentaID) REFERENCES venta(ID),
+  FOREIGN KEY (LibroID) REFERENCES libro(ID)
 );
 
 -- Estructura de la tabla 'bestseller'
@@ -40,36 +96,22 @@ CREATE TABLE IF NOT EXISTS carrito (
   FOREIGN KEY (LibroID) REFERENCES libro(ID)
 );
 
--- Estructura de la tabla 'categoria'
-CREATE TABLE IF NOT EXISTS categoria (
-  ID INT NOT NULL AUTO_INCREMENT,
-  Nombre VARCHAR(50) NOT NULL,
-  PRIMARY KEY (ID)
+-- Estructura de la tabla 'wishlist'
+CREATE TABLE IF NOT EXISTS wishlist (
+  UsuarioID INT NOT NULL,
+  LibroID INT NOT NULL,
+  FechaAgregado DATE NOT NULL,
+  PRIMARY KEY (UsuarioID, LibroID),
+  FOREIGN KEY (UsuarioID) REFERENCES usuario(ID),
+  FOREIGN KEY (LibroID) REFERENCES libro(ID)
 );
 
--- Estructura de la tabla 'editorial'
-CREATE TABLE IF NOT EXISTS editorial (
-  ID INT NOT NULL AUTO_INCREMENT,
-  Nombre VARCHAR(100) NOT NULL,
-  Sede VARCHAR(100),
-  Fundacion DATE,
-  Descripcion TEXT,
-  PRIMARY KEY (ID)
-);
-
--- Estructura de la tabla 'libro'
-CREATE TABLE IF NOT EXISTS libro (
-  ID INT NOT NULL AUTO_INCREMENT,
-  Titulo VARCHAR(255) NOT NULL,
-  AutorID INT,
-  EditorialID INT,
-  Precio DECIMAL(10,2) NOT NULL,
-  Descripcion TEXT,
-  CategoriaID INT,
-  Imagen VARCHAR(255),
-  PRIMARY KEY (ID),
+-- Estructura de la tabla 'autorcategoria'
+CREATE TABLE IF NOT EXISTS autorcategoria (
+  AutorID INT NOT NULL,
+  CategoriaID INT NOT NULL,
+  PRIMARY KEY (AutorID, CategoriaID),
   FOREIGN KEY (AutorID) REFERENCES autor(ID),
-  FOREIGN KEY (EditorialID) REFERENCES editorial(ID),
   FOREIGN KEY (CategoriaID) REFERENCES categoria(ID)
 );
 
@@ -82,34 +124,34 @@ CREATE TABLE IF NOT EXISTS librocategoria (
   FOREIGN KEY (CategoriaID) REFERENCES categoria(ID)
 );
 
--- Estructura de la tabla 'usuario'
-CREATE TABLE IF NOT EXISTS usuario (
-  ID INT NOT NULL AUTO_INCREMENT,
-  Nombre VARCHAR(100) NOT NULL,
-  Email VARCHAR(100) NOT NULL,
-  Password VARCHAR(255) NOT NULL,
-  PRIMARY KEY (ID)
+-- Estructura de la tabla 'libroeditorial'
+CREATE TABLE IF NOT EXISTS libroeditorial (
+  LibroID INT NOT NULL,
+  EditorialID INT NOT NULL,
+  PRIMARY KEY (LibroID, EditorialID),
+  FOREIGN KEY (LibroID) REFERENCES libro(ID),
+  FOREIGN KEY (EditorialID) REFERENCES editorial(ID)
 );
 
--- Estructura de la tabla 'ventadetalle'
-CREATE TABLE IF NOT EXISTS ventadetalle (
-  VentaID INT NOT NULL,
+-- Estructura de la tabla 'librorecomendado'
+CREATE TABLE IF NOT EXISTS librorecomendado (
   LibroID INT NOT NULL,
-  Cantidad INT NOT NULL,
-  Precio DECIMAL(10,2) NOT NULL,
-  PRIMARY KEY (VentaID, LibroID),
-  FOREIGN KEY (VentaID) REFERENCES venta(ID),
+  PRIMARY KEY (LibroID),
   FOREIGN KEY (LibroID) REFERENCES libro(ID)
 );
 
--- Estructura de la tabla 'venta'
-CREATE TABLE IF NOT EXISTS venta (
+-- Estructura de la tabla 'privilegio'
+CREATE TABLE IF NOT EXISTS privilegio (
   ID INT NOT NULL AUTO_INCREMENT,
-  UsuarioID INT NOT NULL,
-  Fecha DATETIME NOT NULL,
-  Total DECIMAL(10,2) NOT NULL,
-  PRIMARY KEY (ID),
-  FOREIGN KEY (UsuarioID) REFERENCES usuario(ID)
+  Nombre VARCHAR(100) NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+-- Estructura de la tabla 'metodopago'
+CREATE TABLE IF NOT EXISTS metodopago (
+  ID INT NOT NULL AUTO_INCREMENT,
+  Nombre VARCHAR(100) NOT NULL,
+  PRIMARY KEY (ID)
 );
 
 -- Insertar datos en la tabla 'categoria'
@@ -145,24 +187,10 @@ INSERT INTO categoria (Nombre) VALUES
 ('Negocios y finanzas'),
 ('Educación');
 
--- Estructura de la tabla 'privilegio'
-CREATE TABLE IF NOT EXISTS privilegio (
-  ID INT NOT NULL AUTO_INCREMENT,
-  Nombre VARCHAR(100) NOT NULL,
-  PRIMARY KEY (ID)
-);
-
 -- Insertar datos en la tabla 'privilegio'
 INSERT INTO privilegio (Nombre) VALUES
 ('Administrador'),
 ('Usuario regular');
-
--- Estructura de la tabla 'metodopago'
-CREATE TABLE IF NOT EXISTS metodopago (
-  ID INT NOT NULL AUTO_INCREMENT,
-  Nombre VARCHAR(100) NOT NULL,
-  PRIMARY KEY (ID)
-);
 
 -- Insertar datos en la tabla 'metodopago'
 INSERT INTO metodopago (Nombre) VALUES
@@ -170,24 +198,14 @@ INSERT INTO metodopago (Nombre) VALUES
 ('Transferencia bancaria'),
 ('PayPal');
 
--- Estructura de la tabla 'librorecomendado'
-CREATE TABLE IF NOT EXISTS librorecomendado (
-  LibroID INT NOT NULL,
-  PRIMARY KEY (LibroID),
-  FOREIGN KEY (LibroID) REFERENCES libro(ID)
-);
-
--- Estructura de la tabla 'libroeditorial'
-CREATE TABLE IF NOT EXISTS libroeditorial (
-LibroID INT NOT NULL,
-EditorialID INT NOT NULL,
-PRIMARY KEY (LibroID, EditorialID),
-FOREIGN KEY (LibroID) REFERENCES libro(ID),
-FOREIGN KEY (EditorialID) REFERENCES editorial(ID)
-);
-
 -- Crear el disparador para actualizar las ventas acumuladas en la tabla 'bestseller' después de insertar en 'ventadetalle'
-DELIMITER CREATETRIGGERactualizarVentasAcumuladasAFTERINSERTONventadetalleFOREACHROWBEGINUPDATEbestsellerSETVentasAcumuladas=VentasAcumuladas+NEW.CantidadWHERELibroID=NEW.LibroID;ENDCREATETRIGGERactualizarV​entasAcumuladasAFTERINSERTONventadetalleFOREACHROWBEGINUPDATEbestsellerSETVentasAcumuladas=VentasAcumuladas+NEW.CantidadWHERELibroID=NEW.LibroID;END
+DELIMITER $$
+CREATE TRIGGER actualizarVentasAcumuladas AFTER INSERT ON ventadetalle
+FOR EACH ROW BEGIN
+    UPDATE bestseller
+    SET VentasAcumuladas = VentasAcumuladas + NEW.Cantidad
+    WHERE LibroID = NEW.LibroID;
+END$$
 DELIMITER ;
 
 -- Crear los índices
@@ -226,5 +244,8 @@ ALTER TABLE metodopago ADD INDEX idx_metodopago_nombre (Nombre);
 
 -- Índices para la tabla privilegio
 ALTER TABLE privilegio ADD INDEX idx_privilegio_nombre (Nombre);
+
+-- Índices para la tabla wishlist
+ALTER TABLE wishlist ADD INDEX idx_wishlist_fechaAgregado (FechaAgregado);
 
 COMMIT;

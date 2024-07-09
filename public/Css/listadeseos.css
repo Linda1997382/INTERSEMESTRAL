@@ -1,7 +1,3 @@
-/*configuracion principales*/
-body {
-    font-family: 'Arial', sans-serif;
-}
 /*navbar design*/
 .navbar {
     background-color: navy;
@@ -11,7 +7,14 @@ body {
 .navbar-nav .nav-link {
     color: white;
 }
-
+/*wishlist*/
+.navbar-nav .nav-link.bi.bi-bookmark-heart-fill{
+    color: white;
+    font-size: 15px; 
+    margin-right: 1px;
+    margin-left: 1px;
+  }
+  
 /*navar cart design*/
 .navbar-nav .nav-link .fas.fa-shopping-cart {
     color: white;
@@ -19,7 +22,6 @@ body {
     margin-right: 1px;
     margin-left: 1px;
 }
-/*wishlist*/
 .navbar-nav .nav-link.bi.bi-bookmark-heart-fill{
     color: white;
     font-size: 15px; 
@@ -66,9 +68,3 @@ body {
 .nav-link:hover {
     transform: translateY(-5px); 
 }
-
-
-
-
-
-
