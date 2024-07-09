@@ -6,6 +6,7 @@ import config from './config.js';
 import cors from 'cors';
 import booksRoutes from './routes/book.js'; // Importa las rutas de books.js
 import cartRoutes from './routes/cart.js';  //importa las rutas de cart.js
+import WshlstRoutes from './routes/Wshlst.js' // importa las rutas de Wshlst.js
 import categoryRoutes from './routes/categoria.js';
 import editorialRoutes from './routes/editorial.js';
 import ventasRoutes from './routes/ventas.js'; 
@@ -200,6 +201,7 @@ app.delete('/api/authors/:id', async (req, res) => {
 
 app.use('/api/books', booksRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/Wshlst', WshlstRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/editorials', editorialRoutes);
 app.use('api/ventas',ventasRoutes);

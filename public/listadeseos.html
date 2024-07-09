@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>listadeseos</title>
+    <title>Wishlist</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Estilos personalizados -->
@@ -14,7 +14,7 @@
         <!-- Barra de navegación -->
         <nav class="navbar navbar-expand-lg ">
             <a class="navbar-brand" href="index.html">
-                <img  id="IMG1" src="https://i.imgur.com/7w4wg5l.png">
+                <img id="IMG1" src="https://i.imgur.com/7w4wg5l.png">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,10 +29,6 @@
                         <a class="nav-link active" href="sobrenosotros.html">Sobre Nosotros</a>
                     </li>
                 </ul>
-                <!--<form class="form-inline my-2 my-lg-0 ml-auto">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>-->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                         <a id="login-link" class="nav-link" href="Miperfil.html">
@@ -47,35 +43,29 @@
                         </a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="listadeseos.html">
-                            <i class="bi bi-bookmark-heart-fill"></i>
-                        </a>
-                    </li>
-                </ul>
             </div>
         </nav>
     </header>
 
-    <!--carrito-->
+    <!-- Wishlist -->
     <div class="container mt-5">
         <h1 class="text-center mb-4">Wishlist</h1>
         <div class="row">
             <div class="col-md-8">
-                <ul class="list-group" id="wshlst-items">
+                <ul class="list-group" id="Wshlst-items">
                     <!-- Aquí se mostrarán los elementos de la wishlist -->
                 </ul>
             </div>
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Resumen de productos</h5>
+                        <h5 class="card-title">Resumen de la Wishlist</h5>
                         <div class="d-flex justify-content-between">
                             <span>Total:</span>
                             <span id="total-price">$0</span>
                         </div>
-                        <a href="metododepago.html" class="btn btn-primary mt-3">Realizar Compra</a>
+                        <!-- Opción de compra (simulada) -->
+                        <a href="metododepago.html" class="btn btn-primary mt-3">Comprar</a>
                     </div>
                 </div>
             </div>

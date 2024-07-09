@@ -143,9 +143,11 @@ footer a:hover {
     margin-right: 1px;
     margin-left: 1px;
 }
-
+.navbar-nav .nav-link .bi.bi-bookmark-heart-fill
 .nav-item {
-    position: relative;
+    font-size: 15px;
+    margin-right: 1px;
+    margin-left: 1px;
 }
 
 .nav-item:not(:last-child):after {

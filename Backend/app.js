@@ -16,6 +16,6 @@ app.use(cors());
 // Rutas
 app.use('/api/users', usersRoutes);
 app.use('/api/books', bookRoutes);
-
+app.use('/api/Wshlst', WshlstRoutes);
 // Exporta la aplicación configurada
 export default app;

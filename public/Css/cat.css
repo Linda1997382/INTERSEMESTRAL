@@ -85,6 +85,13 @@ body {
     border-radius: 2px;
     image-rendering: optimizeQuality;
   }
+    /*wishlist*/
+.navbar-nav .nav-link.bi.bi-bookmark-heart-fill{
+  color: white;
+  font-size: 15px; 
+  margin-right: 1px;
+  margin-left: 1px;
+}
   
   /*diseño de los links*/
   .nav-item {
